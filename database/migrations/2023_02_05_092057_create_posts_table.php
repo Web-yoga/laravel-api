@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,13 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+			$table->foreignId('category_id')->constrained()->onDelete('cascade');
+			$table->string('title');
+			$table->string('slug')->unique();
+			$table->string('annotation_title')->nullable();
+			$table->text('annotation')->nullable();
+			$table->text('content');
+			$table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }
@@ -28,4 +35,4 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('posts');
     }
-}
+};

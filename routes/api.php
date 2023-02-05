@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/posts', function(){
-	return 'posts';
+	return Post::all();
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
