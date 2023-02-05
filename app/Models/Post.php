@@ -4,14 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Post extends Model implements HasMedia
+class Post extends Model
 {
-	use HasFactory, InteractsWithMedia;
+	use HasFactory;
 
 	protected $fillable = ['category_id', 
 	'title', 
@@ -33,15 +29,6 @@ class Post extends Model implements HasMedia
 	public function tags()
 	{
 		return $this->belongsToMany(Tag::class);
-	}
-
-	//Spatie Media Library
-	public function registerMediaConversions(Media $media = null): void
-	{
-		$this
-			->addMediaConversion('preview')
-			->fit(Manipulations::FIT_CROP, 300, 300)
-			->nonQueued();
 	}
 
 	public function getPostList($category_id, $skip, $take)
